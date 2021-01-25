@@ -5,7 +5,7 @@ public class NBody {
 
     /* Given a file name, return a double corresponding to the radius of the universe in that file.
      */
-    private static double readRadius(String file){
+    public static double readRadius(String file){
         In in = new In(file);
         int n = in.readInt();
         double radius = in.readDouble();
@@ -15,7 +15,7 @@ public class NBody {
     /* Given a file name, it should return an array of Planets
         corresponding to the planets in the file.
     */
-    private static Planet[] readPlanets(String file){
+    public static Planet[] readPlanets(String file){
         In in = new In(file);
         int numOfPlanets = in.readInt();
         Planet[] planets = new Planet[numOfPlanets];

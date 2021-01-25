@@ -31,7 +31,7 @@ public class Planet {
     /* Calculate the distance between of planet p and this planet.
     @ param Planet p.
      */
-    private double calcDistance(Planet p){
+    public double calcDistance(Planet p){
         double dx = p.xxPos - this.xxPos;
         double dy = p.yyPos - this.yyPos;
         double distance = Math.sqrt(dx * dx +dy * dy);
@@ -41,7 +41,7 @@ public class Planet {
     /* Takes in a planet, and returns a double describing the force
         exerted on this planet by the given planet.
     */
-    private double calcForceExertedBy(Planet p){
+    public double calcForceExertedBy(Planet p){
         double r = calcDistance(p);
         double force = g * p.mass * this.mass / (r * r);
         return force;
@@ -49,7 +49,7 @@ public class Planet {
 
     /* Computes the x - components of the force exerted by Planet p.
      */
-    private double calcForceExertedByX(Planet p){
+    public double calcForceExertedByX(Planet p){
         double dx = p.xxPos - this.xxPos;
         double force = calcForceExertedBy(p);
         double r = calcDistance(p);
@@ -59,7 +59,7 @@ public class Planet {
 
     /* Computes the y - components of the force exerted by Planet p.
      */
-    private double calcForceExertedByY(Planet p){
+    public double calcForceExertedByY(Planet p){
         double dy = p.yyPos - this.yyPos;
         double force = calcForceExertedBy(p);
         double r = calcDistance(p);
