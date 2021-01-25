@@ -1,3 +1,5 @@
+import static org.junit.Assert.*;
+
 public class HorribleSteve {
     public static void main(String [] args) {
         int i = 0;
