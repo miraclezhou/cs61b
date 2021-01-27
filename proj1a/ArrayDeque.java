@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
 
     // Adds an item of type T to the front of the deque.
     public void addFirst(T item) {
-        if(size == items.length) {
+        if (size == items.length) {
             resize(items.length * 2);
         }
         items[head] = item;
@@ -34,7 +34,7 @@ public class ArrayDeque<T> {
 
     // Adds an item of type T to the back of the deque.
     public void addLast(T item) {
-        if(size == items.length) {
+        if (size == items.length) {
             resize(items.length * 2);
         }
         items[rear] = item;
@@ -54,8 +54,8 @@ public class ArrayDeque<T> {
 
     // Prints the items in the deque from first to last, separated by a space.
     public void printDeque() {
-        if(!isEmpty()) {
-            for(int i = 0; i < size; i++) {
+        if (!isEmpty()) {
+            for (int i = 0; i < size; i++) {
                 System.out.print(get(i) + " ");
             }
         }
@@ -64,13 +64,13 @@ public class ArrayDeque<T> {
     // Removes and returns the item at the front of the deque. If no such item exists, returns null.
     public T removeFirst() {
         T rFirst = null;
-        if(!isEmpty()) {
+        if (!isEmpty()) {
             int first = getCircleIndex(head + 1);
             rFirst = items[first];
             items[first] = null;
             head = first;
             size -= 1;
-            if(items.length > 8 && usageFactor() == 0.25) {
+            if (items.length > 8 && usageFactor() == 0.25) {
                 resize(items.length / 2);
             }
         }
@@ -80,13 +80,13 @@ public class ArrayDeque<T> {
     // Removes and returns the item at the back of the deque. If no such item exists, returns null.
     public T removeLast() {
         T rLast = null;
-        if(!isEmpty()) {
+        if (!isEmpty()) {
             int last = getCircleIndex(rear - 1);
             rLast = items[last];
             items[last] = null;
             rear = last;
             size -= 1;
-            if(items.length > 8 && usageFactor() == 0.25) {
+            if (items.length > 8 && usageFactor() == 0.25) {
                 resize(items.length / 2);
             }
         }
@@ -97,11 +97,11 @@ public class ArrayDeque<T> {
     // If no such item exists, returns null. Must not alter the deque!
     public T get(int index) {
         // Check the index.
-        if(index < 0 && index >= size) {
+        if (index < 0 && index >= size) {
             return null;
         }
         // Check the empty deque.
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         int arrayDequeIndex = getCircleIndex(head + 1 + index);
