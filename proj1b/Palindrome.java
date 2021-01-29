@@ -15,7 +15,8 @@ public class Palindrome {
     }
 
 
-    /**  Non-recursive methond. Return true if the given word is a Offbyone palindrome, and false otherwise. */
+    /**  Non-recursive methond.
+     *   Return true if the given word is a Offbyone palindrome, and false otherwise. */
     /*
     public boolean isPalindrome(String word) {
         if(word.length() == 0 || word.length() == 1) {
