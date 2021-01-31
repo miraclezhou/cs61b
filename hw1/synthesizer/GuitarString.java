@@ -15,7 +15,7 @@ public class GuitarString {
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
 
-        int capa = (int) Math.round(10 * SR / frequency);
+        int capa = (int) Math.round(SR / frequency);
         buffer = new ArrayRingBuffer<>(capa);
         for (int i = 0; i < capa; i += 1) {
             buffer.enqueue(0.0);
@@ -40,15 +40,18 @@ public class GuitarString {
 
         double firstItem = buffer.dequeue();
         double secondItem = buffer.peek();
-        double newItem = 0.5 * (firstItem + secondItem) * DRUM_DECAY;
+        double newItem = 0.5 * (firstItem + secondItem) * DECAY;
 
-        /** Simulate the sound of drums. */
+        /** Simulate the sound of drums.*/
+        /*
         double r = Math.random() - 0.5;
         if (r > 0) {
             newItem = -newItem;
         }
-
+        */
         buffer.enqueue(newItem);
+
+
     }
 
     /* Return the double at the front of the buffer. */

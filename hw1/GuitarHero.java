@@ -2,7 +2,7 @@ import synthesizer.GuitarString;
 
 public class GuitarHero {
 
-    private static final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+    private static final String KEYBOARD = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
     private static GuitarString[] keyStrings = new GuitarString[37];
 
@@ -20,7 +20,7 @@ public class GuitarHero {
             /* check if the user has typed a key; if so, process it */
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
-                int index = keyboard.indexOf(key);
+                int index = KEYBOARD.indexOf(key);
                 keyStrings[index].pluck();
             }
 
@@ -42,6 +42,6 @@ public class GuitarHero {
 
     /** Compute the freqency of given index. */
     private static double freqOfKey(int index) {
-        return 440 * Math.pow(2, (double)(index - 12) / 24);
+        return 440 * Math.pow(2, (double) (index - 12) / 24);
     }
 }
