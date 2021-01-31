@@ -5,3 +5,4 @@
 #### [lab3](https://github.com/miraclezhou/cs61b/tree/master/lab3)
 #### [proj1a](https://github.com/miraclezhou/cs61b/tree/master/proj1a)
 #### [proj1b](https://github.com/miraclezhou/cs61b/tree/master/proj1b)
+#### [hw1](https://github.com/miraclezhou/cs61b/tree/master/hw1)
