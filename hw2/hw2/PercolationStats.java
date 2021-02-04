@@ -1,13 +1,12 @@
 package hw2;
 import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
 
     private int times;
     private int num;
     private double[] fraction;
-    private double stddev;
-    private double mean;
     private PercolationFactory pf;
 
     // perform T independent experiments on an N-by-N grid
@@ -24,7 +23,6 @@ public class PercolationStats {
     }
 
     private void doExperiments() {
-        double sum = 0.0;
         for (int i = 0; i < times; i++) {
             Percolation perco = pf.make(num);
             while (!perco.percolates()) {
@@ -35,13 +33,11 @@ public class PercolationStats {
                 }
             }
             fraction[i] = (double) perco.numberOfOpenSites() / (num * num);
-            sum += fraction[i];
         }
-        mean = sum / times;
     }
     // sample mean of percolation threshold
     public double mean() {
-        return mean;
+        return StdStats.mean(fraction);
     }
 
     // sample standard deviation of percolation threshold
@@ -49,22 +45,17 @@ public class PercolationStats {
         if (times == 1) {
             return Double.NaN;
         }
-        double sumStddev = 0.0;
-        for (int i = 0; i < times; i++) {
-            sumStddev += (fraction[i] - mean) * (fraction[i] - mean);
-        }
-        stddev = Math.sqrt(sumStddev / (times - 1));
-        return stddev;
+        return StdStats.stddev(fraction);
     }
 
     // low endpoint of 95% confidence interval
     public double confidenceLow() {
-        return mean - 1.96 * stddev / Math.sqrt(times);
+        return mean() - 1.96 * stddev() / Math.sqrt(times);
     }
 
     // high endpoint of 95% confidence interval
     public double confidenceHigh() {
-        return mean + 1.96 * stddev / Math.sqrt(times);
+        return mean() + 1.96 * stddev() / Math.sqrt(times);
     }
 
     /**
@@ -76,6 +67,7 @@ public class PercolationStats {
         System.out.println("( " + p.confidenceLow() + " , " + p.confidenceHigh() + " )");
     }
      */
+
 
 
 
