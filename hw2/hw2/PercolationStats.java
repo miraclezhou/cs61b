@@ -6,8 +6,9 @@ public class PercolationStats {
     private int times;
     private int num;
     private double[] fraction;
-    private double mean;
+    private Percolation perco;
     private double stddev;
+    private double mean;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -18,12 +19,16 @@ public class PercolationStats {
         num = N;
         times = T;
         fraction = new double[times];
-        Percolation perco = pf.make(num);
+        perco = pf.make(num);
+        doExperiments();
+    }
+
+    private void doExperiments() {
         double sum = 0.0;
         for (int i = 0; i < times; i++) {
             while (!perco.percolates()) {
-                int rowIndex = StdRandom.uniform(5);
-                int colIndex = StdRandom.uniform(5);
+                int rowIndex = StdRandom.uniform(num);
+                int colIndex = StdRandom.uniform(num);
                 if (!perco.isOpen(rowIndex, colIndex)) {
                     perco.open(rowIndex, colIndex);
                 }
@@ -33,7 +38,6 @@ public class PercolationStats {
         }
         mean = sum / times;
     }
-
     // sample mean of percolation threshold
     public double mean() {
         return mean;
@@ -65,9 +69,12 @@ public class PercolationStats {
     /**
     public static void main(String[] args) {
         PercolationFactory pf = new PercolationFactory();
-        PercolationStats p = new PercolationStats(5, 20, pf);
+        PercolationStats p = new PercolationStats(30, 100, pf);
+        System.out.println(p.mean());
+        System.out.println(p.stddev());
         System.out.println("( " + p.confidenceLow() + " , " + p.confidenceHigh() + " )");
     }
      */
+
 
 }
