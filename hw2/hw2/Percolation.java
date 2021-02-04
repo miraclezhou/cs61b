@@ -52,31 +52,32 @@ public class Percolation {
     /** Connect the neighbor sites if they are open. */
     private void connectNeighbors(int row, int col) {
         // Check left site.
+        int index = xyToIndex(row, col);
         if (col > 0) {
             if (isOpen(row, col - 1)) {
-                connectedSites.union(xyToIndex(row, col), xyToIndex(row, col - 1));
-                checkFull.union(xyToIndex(row, col), xyToIndex(row, col - 1));
+                connectedSites.union(index, xyToIndex(row, col - 1));
+                checkFull.union(index, xyToIndex(row, col - 1));
             }
         }
         // Check right site.
         if (col < rows - 1) {
             if (isOpen(row, col + 1)) {
-                connectedSites.union(xyToIndex(row, col), xyToIndex(row, col + 1));
-                checkFull.union(xyToIndex(row, col), xyToIndex(row, col + 1));
+                connectedSites.union(index, xyToIndex(row, col + 1));
+                checkFull.union(index, xyToIndex(row, col + 1));
             }
         }
         // Check upper site.
         if (row > 0) {
             if (isOpen(row - 1, col)) {
-                connectedSites.union(xyToIndex(row, col), xyToIndex(row - 1, col));
-                checkFull.union(xyToIndex(row, col), xyToIndex(row - 1, col));
+                connectedSites.union(index, xyToIndex(row - 1, col));
+                checkFull.union(index, xyToIndex(row - 1, col));
             }
         }
         // Check under site.
         if (row < rows - 1) {
             if (isOpen(row + 1, col)) {
-                connectedSites.union(xyToIndex(row, col), xyToIndex(row + 1, col));
-                checkFull.union(xyToIndex(row, col), xyToIndex(row + 1, col));
+                connectedSites.union(index, xyToIndex(row + 1, col));
+                checkFull.union(index, xyToIndex(row + 1, col));
             }
         }
     }
