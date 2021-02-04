@@ -6,7 +6,6 @@ public class PercolationStats {
     private int times;
     private int num;
     private double[] fraction;
-    private Percolation perco;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -17,16 +16,15 @@ public class PercolationStats {
         num = N;
         times = T;
         fraction = new double[times];
-        perco = pf.make(num);
-        doExperiments();
-    }
+        Percolation perco = pf.make(num);
 
-    private void doExperiments() {
         for (int i = 0; i < times; i++) {
             while (!perco.percolates()) {
                 int rowIndex = StdRandom.uniform(5);
                 int colIndex = StdRandom.uniform(5);
-                perco.open(rowIndex, colIndex);
+                if (!perco.isOpen(rowIndex, colIndex)) {
+                    perco.open(rowIndex, colIndex);
+                }
             }
             fraction[i] = (double) perco.numberOfOpenSites() / (num * num);
         }
@@ -61,6 +59,12 @@ public class PercolationStats {
     // high endpoint of 95% confidence interval
     public double confidenceHigh() {
         return mean() + 1.96 * stddev() / Math.sqrt(times);
+    }
+
+    public static void main(String[] args) {
+        PercolationFactory pf =new PercolationFactory();
+        PercolationStats p = new PercolationStats(20, 10, pf);
+        System.out.println("( " + p.confidenceLow() + " , " + p.confidenceHigh() + " )");
     }
 
 }

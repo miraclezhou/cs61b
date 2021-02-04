@@ -32,9 +32,8 @@ public class Percolation {
     /** open the site (row, col) if it is not open already. */
     public void open(int row, int col) {
         int index = xyToIndex(row, col);
-
-        if (!openSites[index]) {
-            openSites[index] = true;
+        if (openSites[index]) {
+            return;
         }
         // Connect to the virtual top.
         if (row == 0) {
@@ -46,7 +45,7 @@ public class Percolation {
             connectedSites.union(index, bottom);
         }
         connectNeighbors(row, col);
-        openSites[xyToIndex(row, col)] = true;
+        openSites[index] = true;
         openNums += 1;
     }
 
