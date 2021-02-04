@@ -6,9 +6,9 @@ public class PercolationStats {
     private int times;
     private int num;
     private double[] fraction;
-    private Percolation perco;
     private double stddev;
     private double mean;
+    private PercolationFactory pf;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -19,13 +19,14 @@ public class PercolationStats {
         num = N;
         times = T;
         fraction = new double[times];
-        perco = pf.make(num);
+        this.pf = pf;
         doExperiments();
     }
 
     private void doExperiments() {
         double sum = 0.0;
         for (int i = 0; i < times; i++) {
+            Percolation perco = pf.make(num);
             while (!perco.percolates()) {
                 int rowIndex = StdRandom.uniform(num);
                 int colIndex = StdRandom.uniform(num);
@@ -69,12 +70,14 @@ public class PercolationStats {
     /**
     public static void main(String[] args) {
         PercolationFactory pf = new PercolationFactory();
-        PercolationStats p = new PercolationStats(30, 100, pf);
+        PercolationStats p = new PercolationStats(50, 20, pf);
         System.out.println(p.mean());
         System.out.println(p.stddev());
         System.out.println("( " + p.confidenceLow() + " , " + p.confidenceHigh() + " )");
     }
      */
+
+
 
 
 }
