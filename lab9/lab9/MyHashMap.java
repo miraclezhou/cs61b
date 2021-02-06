@@ -17,8 +17,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     private ArrayMap<K, V>[] buckets;
     private int size;
 
-    private int loadFactor() {
-        return size / buckets.length;
+    private double loadFactor() {
+        return (double) size / buckets.length;
     }
 
     public MyHashMap() {
@@ -53,19 +53,49 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        int index = hash(key);
+        return buckets[index].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException("Null key not allowed !");
+        }
+        if (value == null) {
+            throw new IllegalArgumentException("Null value not allowed !");
+        }
+        int index = hash(key);
+        int oldSize = buckets[index].size();
+        buckets[index].put(key, value);
+        int newSize = buckets[index].size();
+        size += (newSize - oldSize);
+        if (loadFactor() > MAX_LF) {
+            resize(buckets.length * 2);
+        }
+    }
+
+    /* Resize the array of bucket. */
+    private void resize(int capacity) {
+        ArrayMap<K, V>[] temp = new ArrayMap[capacity];
+        for (int i = 0; i < temp.length; i += 1) {
+            temp[i] = new ArrayMap<>();
+        }
+        for (int i = 0; i < buckets.length; i++) {
+            for (K key : buckets[i].keySet()) {
+                int newIndex = Math.floorMod(key.hashCode(), temp.length);
+                V value = buckets[i].get(key);
+                temp[newIndex].put(key, value);
+            }
+        }
+        buckets = temp;
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
