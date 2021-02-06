@@ -7,3 +7,4 @@
 #### [proj1b](https://github.com/miraclezhou/cs61b/tree/master/proj1b)
 #### [hw1](https://github.com/miraclezhou/cs61b/tree/master/hw1)
 #### [hw2](https://github.com/miraclezhou/cs61b/tree/master/hw2)
+#### [lab9](https://github.com/miraclezhou/cs61b/tree/master/lab9)
