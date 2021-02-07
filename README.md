@@ -9,3 +9,4 @@
 #### [hw2](https://github.com/miraclezhou/cs61b/tree/master/hw2)
 #### [lab9](https://github.com/miraclezhou/cs61b/tree/master/lab9)
 #### [hw3](https://github.com/miraclezhou/cs61b/tree/master/hw3/hw3/hash)
+#### [lab10](https://github.com/miraclezhou/cs61b/tree/master/lab10)
