@@ -6,8 +6,9 @@ import edu.princeton.cs.algs4.MinPQ;
 import java.util.ArrayDeque;
 import java.util.Comparator;
 
-public class Solver {
 
+public class Solver {
+    /** Arraydeque to store solution. */
     private ArrayDeque<WorldState> solutionDeque = new ArrayDeque<>();
 
     /** The minimum number of moves to solve the puzzle starting
@@ -26,6 +27,7 @@ public class Solver {
             myWS = ws;
             numberOfMoves = moves;
             prevNode = prev;
+            // Store distance in local variable to avoid recomputing in pq.delMin().
             distanceToGoal = myWS.estimatedDistanceToGoal();
         }
     }
@@ -34,6 +36,7 @@ public class Solver {
      *  Solves the puzzle using the A* algorithm. Assumes a solution exists.
      */
     public Solver(WorldState initial) {
+        // Create the initial node.
         SearchNode initNode = new SearchNode(initial, 0, null);
         myPQ.insert(initNode);
         SearchNode x = myPQ.delMin();
@@ -49,7 +52,9 @@ public class Solver {
             }
             x = myPQ.delMin();
         }
+        // Get the movements of solver.
         movesOfSolver = x.numberOfMoves;
+        // Get the solution.
         while (x != null) {
             solutionDeque.addFirst(x.myWS);
             x = x.prevNode;
@@ -75,6 +80,7 @@ public class Solver {
 
         @Override
         public int compare(Solver.SearchNode o1, Solver.SearchNode o2) {
+            // Define the priority = ditanceToGoal + movementsAlreadyMade.
             int d1 = o1.distanceToGoal;
             int d2 = o2.distanceToGoal;
             int p1 = d1 + o1.numberOfMoves;

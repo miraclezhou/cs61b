@@ -141,19 +141,27 @@ public class Board implements WorldState {
     }
 
     /** Returns true if this board's tile values are the same position as y's.
-     *  1. Check the class of both.
-     *  2. Check the size of both.
-     *  3. Check every tile of both.
+     *  1. Check null object.
+     *  2. Check the class of both.
+     *  3. Check the size of both.
+     *  4. Check every tile of both.
      * */
     @Override
     public boolean equals(Object y) {
+        // Check null object.
+        if (y == null) {
+            return false;
+        }
+        // Check type of object.
         if (y.getClass() != this.getClass()) {
             return false;
         }
         Board o = (Board) y;
+        // Check size of board.
         if (o.size() != this.size()) {
             return false;
         }
+        // Check every tile of board.
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (tileAt(i, j) != o.tileAt(i, j)) {
