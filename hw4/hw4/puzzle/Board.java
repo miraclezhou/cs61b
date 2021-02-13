@@ -22,7 +22,7 @@ public class Board implements WorldState {
     public int tileAt(int i, int j) {
         // Check illegal index.
         if (i < 0 || j < 0 || i > (size - 1) || j > (size - 1)) {
-            throw new IllegalArgumentException("i or j must be between 0 and N - 1");
+            throw new java.lang.IndexOutOfBoundsException();
         }
         if (size == 0) {
             return 0;
@@ -140,9 +140,20 @@ public class Board implements WorldState {
         return manhattan();
     }
 
-    /** Returns true if this board's tile values are the same position as y's. */
+    /** Returns true if this board's tile values are the same position as y's.
+     *  1. Check the class of both.
+     *  2. Check the size of both.
+     *  3. Check every tile of both.
+     * */
+    @Override
     public boolean equals(Object y) {
+        if (y.getClass() != this.getClass()) {
+            return false;
+        }
         Board o = (Board) y;
+        if (o.size() != this.size()) {
+            return false;
+        }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (tileAt(i, j) != o.tileAt(i, j)) {
@@ -153,6 +164,10 @@ public class Board implements WorldState {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
     /** Returns the string representation of the board. 
       * Uncomment this method. */
