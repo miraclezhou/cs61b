@@ -15,6 +15,7 @@ public class TestBoard {
                 cnt += 1;
             }
         }
+
         Board b = new Board(x);
         assertEquals("Your Board class is not being initialized with the right values.", 0, b.tileAt(0, 0));
         assertEquals("Your Board class is not being initialized with the right values.", 1, b.tileAt(0, 1));
@@ -22,6 +23,8 @@ public class TestBoard {
         assertEquals("Your Board class is not being initialized with the right values.", 3, b.tileAt(1, 1));
 
         x[1][1] = 1000;
+
         assertEquals("Your Board class is mutable and you should be making a copy of the values in the passed tiles array. Please see the FAQ!", 3, b.tileAt(1, 1));
+
     }
 } 
