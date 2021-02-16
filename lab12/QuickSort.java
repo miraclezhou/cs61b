@@ -48,12 +48,77 @@ public class QuickSort {
             Queue<Item> unsorted, Item pivot,
             Queue<Item> less, Queue<Item> equal, Queue<Item> greater) {
         // Your code here!
+        for (Item i : unsorted) {
+            if (i.compareTo(pivot) < 0) {
+                less.enqueue(i);
+            } else if (i.compareTo(pivot) > 0) {
+                greater.enqueue(i);
+            } else {
+                equal.enqueue(i);
+            }
+        }
+        if (less.size() < 2 && greater.size() < 2) {
+            unsorted = catenate(catenate(less, equal), greater);
+        }
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> quickSort(
             Queue<Item> items) {
-        // Your code here!
-        return items;
+        // Check empty queue.
+        if (items.isEmpty() || items.size() == 1) {
+            return items;
+        }
+        // If given queue's size is 1, it is already sorted, just return.
+        if (items.size() == 1) {
+            return items;
+        }
+        /**
+         *  Recursively do the following work:
+         *  1. Randomly select a pivot, partition the unsorted-queue in to three queues: less,
+         *     equal and greater.
+         *  2. If size of less and greater are both less than 2, it means less and greater are
+         *     already sorted, just catenate less, equal and greater, then return.
+         *  3. Else, it means at least one of them is unsorted(because its size is more than 1),
+         *     quickSort the unsorted queues, then catenate less, equal and greater, then return.
+         */
+        Queue<Item> less = new Queue<>();
+        Queue<Item> equal = new Queue<>();
+        Queue<Item> greater = new Queue<>();
+        Item pivot = getRandomItem(items);
+        partition(items, pivot, less, equal, greater);
+        // After partition, the three queues are already sorted, just catenate and return.
+        if (less.size() < 2 && greater.size() < 2) {
+            items = catenate(catenate(less, equal), greater);
+            return items;
+        }
+        // QuickSort queue of less and greater.
+        less = quickSort(less);
+        greater = quickSort(greater);
+        // After quickSort less and greater, catenate the three parts and return.
+        Queue<Item> leftHalf = catenate(less, equal);
+        Queue<Item> sorted = catenate(leftHalf, greater);
+        return sorted;
+    }
+
+
+    public static void main(String[] args) {
+        Queue<Integer> mq = new Queue<>();
+        mq.enqueue(2);
+        mq.enqueue(4);
+        mq.enqueue(20);
+        mq.enqueue(7);
+        mq.enqueue(3);
+        mq.enqueue(9);
+        mq.enqueue(19);
+        mq.enqueue(1);
+        mq.enqueue(8);
+        mq.enqueue(5);
+        mq.enqueue(6);
+        mq.enqueue(12);
+        System.out.println("Test quickSort: ");
+        System.out.println("Before sorting: " + mq);
+        mq = quickSort(mq);
+        System.out.println("After sorting: " + mq);
     }
 }
